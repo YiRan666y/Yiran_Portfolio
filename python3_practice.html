@@ -297,9 +297,12 @@
                 deleteButton.className = 'delete-task';
                 deleteButton.textContent = '删除';
 
-                li.appendChild(checkbox);
-                li.appendChild(text);
-                li.appendChild(deleteButton);
+                taskHeader.appendChild(taskTime);
+                taskControls.appendChild(checkbox);
+                taskControls.appendChild(text);
+                taskControls.appendChild(deleteButton);
+                taskElement.appendChild(taskHeader);
+                taskElement.appendChild(taskControls);
 
                 checkbox.addEventListener('change', () => {
                     task.completed = checkbox.checked;
@@ -313,10 +316,10 @@
                     saveTasks();
                 });
 
-                return li;
+                return taskElement;
             }
 
-            function addTask(text) {
+            function addTask(text, date, time) {
                 if (!text.trim()) return;
 
                 const task = {
@@ -357,6 +360,40 @@
                 currentDate = new Date();
                 renderWeekView();
             });
+
+            function renderWeekView() {
+                weekView.innerHTML = '';
+                const weekDates = getWeekDates(currentDate);
+
+                weekDates.forEach(date => {
+                    const dayColumn = document.createElement('div');
+                    dayColumn.className = 'day-column';
+
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'day-header';
+
+                    const weekDay = document.createElement('h3');
+                    const weekDayNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+                    weekDay.textContent = weekDayNames[date.getDay()];
+
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'date';
+                    dateSpan.textContent = `${date.getMonth() + 1}月${date.getDate()}日`;
+
+                    dayHeader.appendChild(weekDay);
+                    dayHeader.appendChild(dateSpan);
+                    dayColumn.appendChild(dayHeader);
+
+                    const dayTasks = tasks.filter(task => task.date === formatDate(date));
+                    dayTasks.sort((a, b) => a.time.localeCompare(b.time));
+
+                    dayTasks.forEach(task => {
+                        dayColumn.appendChild(createTaskElement(task));
+                    });
+
+                    weekView.appendChild(dayColumn);
+                });
+            }
 
             // 初始化渲染
             renderWeekView();
