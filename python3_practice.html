@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>待办事项清单</title>
+    <title>高级待办事项管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         * {
             margin: 0;
@@ -35,13 +36,21 @@
         }
 
         .input-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 1rem;
             margin-bottom: 2rem;
         }
 
         #task-input {
-            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        #task-date,
+        #task-time {
             padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -62,32 +71,70 @@
             background-color: #45a049;
         }
 
-        .task-list {
-            list-style: none;
+        .week-view {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .day-column {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 1rem;
+        }
+
+        .day-header {
+            text-align: center;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .day-header h3 {
+            margin: 0;
+            color: #495057;
+        }
+
+        .day-header .date {
+            color: #6c757d;
+            font-size: 0.9rem;
         }
 
         .task-item {
+            background: white;
+            border-radius: 5px;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             display: flex;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-            animation: fadeIn 0.3s ease;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .task-item:last-child {
-            border-bottom: none;
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .task-time {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+
+        .task-controls {
+            display: flex;
+            gap: 0.5rem;
         }
 
         .task-checkbox {
-            margin-right: 1rem;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
+            margin-right: 0.5rem;
         }
 
         .task-text {
             flex: 1;
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
 
         .task-text.completed {
@@ -96,66 +143,146 @@
         }
 
         .delete-task {
-            padding: 0.5rem;
+            padding: 0.3rem 0.5rem;
             background-color: #ff4444;
             color: white;
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 0.8rem;
         }
 
         .delete-task:hover {
             background-color: #cc0000;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .week-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 1rem;
+        .week-navigation button {
+            padding: 0.5rem 1rem;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .week-navigation button:hover {
+            background-color: #5a6268;
+        }
+
+        @media (max-width: 1024px) {
+            .input-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .week-view {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .input-container {
+                grid-template-columns: 1fr;
+            }
+
+            .week-view {
+                grid-template-columns: 1fr;
             }
 
             .container {
                 padding: 1rem;
-            }
-
-            .input-container {
-                flex-direction: column;
-            }
-
-            #add-task {
-                width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>待办事项清单</h1>
+        <h1>高级待办事项管理</h1>
+        <div class="week-navigation">
+            <button id="prev-week">上一周</button>
+            <button id="current-week">本周</button>
+            <button id="next-week">下一周</button>
+        </div>
         <div class="input-container">
             <input type="text" id="task-input" placeholder="请输入新的待办事项...">
+            <input type="text" id="task-date" placeholder="选择日期">
+            <input type="text" id="task-time" placeholder="选择时间">
             <button id="add-task">添加</button>
         </div>
-        <ul class="task-list" id="task-list"></ul>
+        <div class="week-view" id="week-view"></div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const taskInput = document.getElementById('task-input');
+            const taskDate = document.getElementById('task-date');
+            const taskTime = document.getElementById('task-time');
             const addTaskButton = document.getElementById('add-task');
-            const taskList = document.getElementById('task-list');
+            const weekView = document.getElementById('week-view');
+            const prevWeekBtn = document.getElementById('prev-week');
+            const currentWeekBtn = document.getElementById('current-week');
+            const nextWeekBtn = document.getElementById('next-week');
+
+            let currentDate = new Date();
             let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+            // 初始化日期选择器
+            flatpickr(taskDate, {
+                locale: 'zh',
+                dateFormat: 'Y-m-d',
+                defaultDate: 'today'
+            });
+
+            // 初始化时间选择器
+            flatpickr(taskTime, {
+                locale: 'zh',
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: 'H:i',
+                time_24hr: true,
+                defaultDate: new Date().setHours(9, 0)
+            });
 
             function saveTasks() {
                 localStorage.setItem('tasks', JSON.stringify(tasks));
             }
 
+            function getWeekDates(date) {
+                const week = [];
+                const current = new Date(date);
+                current.setDate(current.getDate() - current.getDay());
+
+                for (let i = 0; i < 7; i++) {
+                    week.push(new Date(current));
+                    current.setDate(current.getDate() + 1);
+                }
+                return week;
+            }
+
+            function formatDate(date) {
+                return date.toISOString().split('T')[0];
+            }
+
             function createTaskElement(task) {
-                const li = document.createElement('li');
-                li.className = 'task-item';
+                const taskElement = document.createElement('div');
+                taskElement.className = 'task-item';
+
+                const taskHeader = document.createElement('div');
+                taskHeader.className = 'task-header';
+
+                const taskTime = document.createElement('span');
+                taskTime.className = 'task-time';
+                taskTime.textContent = task.time;
+
+                const taskControls = document.createElement('div');
+                taskControls.className = 'task-controls';
 
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
@@ -182,7 +309,7 @@
 
                 deleteButton.addEventListener('click', () => {
                     tasks = tasks.filter(t => t !== task);
-                    li.remove();
+                    renderWeekView();
                     saveTasks();
                 });
 
@@ -194,29 +321,45 @@
 
                 const task = {
                     text: text.trim(),
+                    date: date,
+                    time: time,
                     completed: false
                 };
 
                 tasks.push(task);
-                taskList.appendChild(createTaskElement(task));
+                renderWeekView();
                 saveTasks();
+
                 taskInput.value = '';
             }
 
             addTaskButton.addEventListener('click', () => {
-                addTask(taskInput.value);
+                addTask(taskInput.value, taskDate.value, taskTime.value);
             });
 
             taskInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
-                    addTask(taskInput.value);
+                    addTask(taskInput.value, taskDate.value, taskTime.value);
                 }
             });
 
-            // 初始化加载已保存的任务
-            tasks.forEach(task => {
-                taskList.appendChild(createTaskElement(task));
+            prevWeekBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() - 7);
+                renderWeekView();
             });
+
+            nextWeekBtn.addEventListener('click', () => {
+                currentDate.setDate(currentDate.getDate() + 7);
+                renderWeekView();
+            });
+
+            currentWeekBtn.addEventListener('click', () => {
+                currentDate = new Date();
+                renderWeekView();
+            });
+
+            // 初始化渲染
+            renderWeekView();
         });
     </script>
 </body>
