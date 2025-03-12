@@ -1,0 +1,62 @@
+import io
+import base64
+import matplotlib.pyplot as plt
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+
+def generate_gray_world_map_html(output_filename="gray_world_map.html"):
+    # 1. 绘制灰色世界地图
+    fig = plt.figure(figsize=(12, 6))
+    ax = plt.axes(projection=ccrs.Robinson())  # 你也可以尝试换成其他投影，如 PlateCarree() 等
+    ax.add_feature(cfeature.LAND, facecolor='gray')  # 将陆地部分填充为灰色
+    ax.set_global()
+    ax.set_xticks([])
+    ax.set_yticks([])
+    
+    # 2. 将绘图保存到内存
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png', bbox_inches='tight')
+    plt.close(fig)
+    buf.seek(0)
+
+    # 3. 使用 base64 编码图像
+    encoded_image = base64.b64encode(buf.read()).decode('utf-8')
+
+    # 4. 生成 HTML 代码，将图片以 <img> 的形式嵌入
+    html_content = f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Gray World Map</title>
+    <style>
+        /* 让页面中仅显示地图，无多余边距 */
+        body {{
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }}
+        img {{
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }}
+    </style>
+</head>
+<body>
+    <!-- 将 base64 编码后的灰色世界地图直接内嵌到 HTML 中 -->
+    <img src="data:image/png;base64,{encoded_image}" alt="Gray World Map">
+</body>
+</html>
+    """
+
+    # 5. 将 HTML 写入文件
+    with open(output_filename, "w", encoding="utf-8") as f:
+        f.write(html_content)
+
+    print(f"HTML 文件已生成: {output_filename}")
+
+
+if __name__ == "__main__":
+    generate_gray_world_map_html()
