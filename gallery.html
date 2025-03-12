@@ -1,361 +1,76 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI作品集 | Your Name</title>
-    <style>
-        :root {
-            --primary-color: #2A2A72;
-            --secondary-color: #009FFD;
-            --accent-color: #FFA400;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-
-        body {
-            line-height: 1.6;
-            background: #f8f9fa;
-        }
-
-        /* 导航栏 */
-        .navbar {
-            background: var(--primary-color);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: all 0.3s ease;
-        }
-
-        /* 页头展示区 */
-        .hero {
-            height: 60vh;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding: 2rem;
-        }
-
-        /* 项目展示网格 */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .project-image {
-            height: 200px;
-            background: #ddd;
-            overflow: hidden;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .project-info {
-            padding: 1.5rem;
-        }
-
-        .tech-tags {
-            margin: 1rem 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tech-tag {
-            background: var(--secondary-color);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Online Migration Conceptual Diagram</title>
+  <!-- 引入Mermaid库（需网络环境） -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    /* 可根据需要自定义页面或图表样式 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .mermaid {
+      background-color: #fafafa;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="#home">首页</a>
-            <a href="#projects">作品集</a>
-            <a href="#about">关于</a>
-            <a href="#contact">联系</a>
-        </div>
-    </nav>
 
-    <section class="hero">
-    <div class="carousel">
-        <!-- 视频轮播项 -->
-        <div class="carousel-item">
-            <video autoplay muted loop class="hero-media">
-                <source src="demo-video.mp4" type="video/mp4">
-            </video>
-            <div class="carousel-caption">
-                <h2>视频生成作品示例</h2>
-            </div>
-        </div>
-        
-        <!-- 图片轮播项 -->
-        <div class="carousel-item">
-            <img src="demo-image.jpg" alt="AI绘画作品" class="hero-media">
-        </div>
-    </div>
-</section>
+<h2>Online Migration: Multi-layer Conceptual Diagram</h2>
 
-<style>
-.carousel {
-    width: 100%;
-    height: 60vh;
-    overflow: hidden;
-    position: relative;
-}
+<div class="mermaid">
+flowchart LR
+    %% 定义四个主要层级的子图（子流程） %%
+    subgraph Creation Layer
+    A(Creators):::actor
+    A_note[Culture Transcoding<br/>Self-censorship]
+    end
 
-.carousel-item {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease;
-}
+    subgraph Algorithmic Layer
+    B(Platform & Content Pool):::actor
+    B_note[Content Review<br/>Region-sensitive Filtering<br/>Commercial Valuation<br/>Algorithmic Recommendation]
+    end
 
-.hero-media {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    subgraph Distribution Layer
+    C(Public Access):::actor
+    C_note[Feed<br/>Discovery<br/>Visibility Rankings]
+    end
 
-.carousel-caption {
-    position: absolute;
-    bottom: 20%;
-    left: 10%;
-    color: white;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-}
-</style>
+    subgraph Recognition Layer
+    D(Consumers):::actor
+    D_note[Interaction<br/>Reproduction<br/>Cognitive Calibration]
+    end
 
-    <main class="projects-grid" id="projects">
-        <!-- 项目1 -->
-        <article class="project-card">
-            <div class="project-image">
-                <img src="path-to-image1.jpg" alt="智能客服系统预览">
-            </div>
-            <div class="project-info">
-                <h3>智能客服系统</h3>
-                <div class="tech-tags">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">TensorFlow</span>
-                    <span class="tech-tag">NLP</span>
-                </div>
-                <p>基于深度学习的智能问答系统，支持多轮对话上下文理解，准确率达92%。</p>
-                <a href="#" class="demo-link">查看演示 →</a>
-            </div>
-        </article>
+    %% 额外添加一个政府监管节点 %%
+    G(Government / Regulators):::actor
 
-        <!-- 项目2 -->
-       <article class="project-card">
-    <!-- 多媒体容器 -->
-    <div class="media-container">
-        <!-- 图片展示 -->
-        <div class="media-item active">
-            <img src="project-preview.jpg" alt="项目预览">
-        </div>
-        
-        <!-- 视频展示 -->
-        <div class="media-item">
-            <video controls poster="video-thumbnail.jpg">
-                <source src="project-demo.mp4" type="video/mp4">
-            </video>
-        </div>
-        
-        <!-- 切换按钮 -->
-        <div class="media-switch">
-            <button class="media-btn active" onclick="switchMedia(this, 0)">图片</button>
-            <button class="media-btn" onclick="switchMedia(this, 1)">视频</button>
-        </div>
-    </div>
-    
-    <div class="project-info">
-        <!-- 项目描述保持不变 -->
-    </div>
-</article>
+    %% 连接关系：信息流动和反馈回路 %%
+    A --> B
+    B --> C
+    C --> D
+    D --> A
 
-<style>
-.media-container {
-    position: relative;
-    height: 250px;
-}
+    %% 政府与平台的双向/多向影响 %%
+    B <---> G
 
-.media-item {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: none;
-}
+    %% 样式：统一“actor”类的外观 %%
+    classDef actor fill:#fff,stroke:#666,stroke-width:1px,rx:5,ry:5
 
-.media-item.active {
-    display: block;
-}
-
-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.media-switch {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 10;
-}
-
-.media-btn {
-    background: rgba(255,255,255,0.8);
-    border: none;
-    padding: 5px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.media-btn.active {
-    background: var(--secondary-color);
-    color: white;
-}
-</style>
+    %% 为4个子图分别添加背景色 %%
+    style Creation Layer fill:#FFEC8B,stroke:#000,stroke-width:1px
+    style Algorithmic Layer fill:#B0E2FF,stroke:#000,stroke-width:1px
+    style Distribution Layer fill:#D9FFD9,stroke:#000,stroke-width:1px
+    style Recognition Layer fill:#FFD9DC,stroke:#000,stroke-width:1px
+</div>
 
 <script>
-function switchMedia(btn, index) {
-    const container = btn.closest('.media-container');
-    const items = container.querySelectorAll('.media-item');
-    const btns = container.querySelectorAll('.media-btn');
-    
-    items.forEach(item => item.classList.remove('active'));
-    btns.forEach(b => b.classList.remove('active'));
-    
-    items[index].classList.add('active');
-    btn.classList.add('active');
-}
+  mermaid.initialize({ startOnLoad:true });
 </script>
-        </article>
-<!-- 创建专门的画廊区域 -->
-<section class="gallery-grid">
-    <div class="gallery-item">
-        <img src="ai-art-1.jpg" alt="AI绘画作品">
-        <div class="hover-info">
-            <h4>《数字梦境》</h4>
-            <p>使用Stable Diffusion生成</p>
-        </div>
-    </div>
-    
-    <div class="gallery-item video-item">
-        <video controls>
-            <source src="ai-animation.mp4">
-        </video>
-    </div>
-</style>
 
-<style>
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    padding: 2rem;
-}
-
-.gallery-item {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s;
-}
-
-.gallery-item:hover {
-    transform: scale(1.03);
-}
-
-.hover-info {
-    position: absolute;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    color: white;
-    width: 100%;
-    padding: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.gallery-item:hover .hover-info {
-    opacity: 1;
-}
-
-.video-item video {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-</style>
-
-        <!-- 添加更多项目 -->
-    </main>
-
-    <section id="contact" style="background: var(--primary-color); color: white; padding: 4rem 2rem; text-align: center;">
-        <h2>与我联系</h2>
-        <p>欢迎交流AI项目合作或技术探讨</p>
-        <div style="margin-top: 2rem;">
-            <a href="mailto:your.email@example.com" style="color: var(--accent-color); text-decoration: none;">your.email@example.com</a>
-        </div>
-    </section>
 </body>
 </html>
