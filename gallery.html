@@ -25,47 +25,45 @@
 
 <div class="mermaid">
 flowchart LR
-    %% 定义四个主要层级的子图（子流程） %%
-    subgraph Creation Layer
-    A(Creators):::actor
-    A_note[Culture Transcoding<br/>Self-censorship]
+    %% 定义政府监管作为最外层容器 %%
+    subgraph G[Government / Regulators]
+        %% 定义四个主要层级的子图（子流程） %%
+        subgraph  
+        A(Creators):::actor
+        A_note[Culture Transcoding<br/>Self-censorship]
+        end
+
+        subgraph  
+        B(Platform & Content Pool):::actor
+        B_note[Content Review<br/>Region-sensitive Filtering<br/>Commercial Valuation<br/>Algorithmic Recommendation]
+        end
+
+        subgraph  
+        C(Public Access):::actor
+        C_note[Feed<br/>Discovery<br/>Visibility Rankings]
+        end
+
+        subgraph  
+        D(Consumers):::actor
+        D_note[Interaction<br/>Reproduction<br/>Cognitive Calibration]
+        end
+
+        %% 连接关系：信息流动和反馈回路 %%
+        A <--> B
+        B <--> C
+        C <--> D
+        D <--> A
     end
 
-    subgraph Algorithmic Layer
-    B(Platform & Content Pool):::actor
-    B_note[Content Review<br/>Region-sensitive Filtering<br/>Commercial Valuation<br/>Algorithmic Recommendation]
-    end
-
-    subgraph Distribution Layer
-    C(Public Access):::actor
-    C_note[Feed<br/>Discovery<br/>Visibility Rankings]
-    end
-
-    subgraph Recognition Layer
-    D(Consumers):::actor
-    D_note[Interaction<br/>Reproduction<br/>Cognitive Calibration]
-    end
-
-    %% 额外添加一个政府监管节点 %%
-    G(Government / Regulators):::actor
-
-    %% 连接关系：信息流动和反馈回路 %%
-    A --> B
-    B --> C
-    C --> D
-    D --> A
-
-    %% 政府与平台的双向/多向影响 %%
-    B <---> G
-
-    %% 样式：统一“actor”类的外观 %%
+    %% 样式：统一"actor"类的外观 %%
     classDef actor fill:#fff,stroke:#666,stroke-width:1px,rx:5,ry:5
 
     %% 为4个子图分别添加背景色 %%
-    style Creation Layer fill:#FFEC8B,stroke:#000,stroke-width:1px
-    style Algorithmic Layer fill:#B0E2FF,stroke:#000,stroke-width:1px
-    style Distribution Layer fill:#D9FFD9,stroke:#000,stroke-width:1px
-    style Recognition Layer fill:#FFD9DC,stroke:#000,stroke-width:1px
+    style subgraph0 fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style subgraph1 fill:#FFEC8B,stroke:#000,stroke-width:1px
+    style subgraph2 fill:#B0E2FF,stroke:#000,stroke-width:1px
+    style subgraph3 fill:#D9FFD9,stroke:#000,stroke-width:1px
+    style subgraph4 fill:#FFD9DC,stroke:#000,stroke-width:1px
 </div>
 
 <script>
