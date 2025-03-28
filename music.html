@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>音乐播放器</title>
+    <style>
+        .record {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-image: url('vinyl-record.jpg');
+            margin: 50px auto;
+            animation: rotate 5s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .lyrics {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="record"></div>
+    <div class="lyrics">
+        这里显示歌词...
+    </div>
+    <div class="controls">
+        <button onclick="togglePlay()">播放/暂停</button>
+        <audio id="music" src="your-music.mp3"></audio>
+    </div>
+
+    <script>
+        const audio = document.getElementById('music');
+        const record = document.querySelector('.record');
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                record.style.animationPlayState = 'running';
+            } else {
+                audio.pause();
+                record.style.animationPlayState = 'paused';
+            }
+        }
+    </script>
+</body>
+</html>
