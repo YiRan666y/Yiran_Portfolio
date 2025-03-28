@@ -8,9 +8,35 @@
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            background-image: url('vinyl-record.jpg');
+            background-image: url('http://p1.music.126.net/nYBsbrDUkt8cdTViIeDodw==/18012199486484580.jpg?param=177y177');
+            background-size: cover;
+            background-position: center;
             margin: 50px auto;
             animation: rotate 5s linear infinite;
+            transition: animation-play-state 0.3s ease-out;
+        }
+
+        .upload-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .upload-container input[type="file"] {
+            display: none;
+        }
+
+        .upload-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            background-color: #45a049;
         }
 
         @keyframes rotate {
@@ -37,9 +63,20 @@
     </style>
 </head>
 <body>
+    <div class="music-info">
+        <h2>Fantastic Mr. Fox AKA Petey's Song</h2>
+        <p>《了不起的狐狸爸爸》电影最热插曲</p>
+        <p>歌手：Jarvis Cocker</p>
+        <p>所属专辑：Fantastic Mr. Fox</p>
+    </div>
     <div class="record"></div>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=995222&auto=1&height=66"></iframe>
     <div class="lyrics">
         这里显示歌词...
+    </div>
+    <div class="upload-container">
+        <input type="file" id="coverUpload" accept="image/*" onchange="handleCoverUpload(event)">
+        <label for="coverUpload" class="upload-btn">上传封面</label>
     </div>
     <div class="controls">
         <button onclick="togglePlay()">播放/暂停</button>
@@ -57,6 +94,17 @@
             } else {
                 audio.pause();
                 record.style.animationPlayState = 'paused';
+            }
+        }
+
+        function handleCoverUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    record.style.backgroundImage = `url(${e.target.result})`;
+                };
+                reader.readAsDataURL(file);
             }
         }
     </script>
