@@ -55,6 +55,12 @@
             margin: 20px;
         }
 
+        .player-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
         button {
             padding: 10px 20px;
             font-size: 18px;
@@ -70,7 +76,9 @@
         <p>所属专辑：Fantastic Mr. Fox</p>
     </div>
     <div class="record"></div>
-    <iframe frameborder="no" border="30" marginwidth="20" marginheight="20" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=995222&auto=1&height=66"></iframe>
+    <div class="player-container">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=995222&auto=1&height=66"></iframe>
+    </div>
     <div class="lyrics">
         这里显示歌词...
     </div>
