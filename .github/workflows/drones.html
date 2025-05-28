@@ -1,1 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学术思路图：鞍山村农业无人机感知评价与影响因素</title>
+    <style>
+        body {
+            font-family: 'SimSun', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+       .diagram-container {
+            width: 95%;
+            max-width: 1200px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+       .diagram-title {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
 
+       .layer {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px dashed #ddd;
+            border-radius: 5px;
+        }
+       .layer h3 {
+            text-align: center;
+            margin-top: 0;
+            color: #3498db;
+            font-size: 1.4em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+       .structural-factors-container,.actors-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+       .factor,.actor-card {
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(0,0,0,0.05);
+        }
+
+       .factor {
+            flex: 1 1 30%; /* Grow, shrink, basis */
+            min-width: 250px;
+        }
+       .factor h4,.actor-card h4 {
+            margin-top: 0;
+            color: #2980b9;
+            font-size: 1.2em;
+        }
+       .factor ul,.perception-lens ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            font-size: 0.9em;
+        }
+       .factor ul li,.perception-lens ul li {
+            padding: 3px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+       .factor ul li:last-child,.perception-lens ul li:last-child {
+            border-bottom: none;
+        }
+
+       .influence-arrow-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+       .influence-arrow {
+            font-size: 2em;
+            color: #e67e22;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+       .actor-card {
+            flex: 1 1 45%; /* Two actors per row on wider screens */
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+       .perception-lens {
+            background-color: #f9f9f9;
+            border: 1px dashed #7f8c8d;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 3px;
+            flex-grow: 1;
+        }
+       .perception-lens h5 {
+            margin-top: 0;
+            color: #27ae60;
+            font-size: 1.1em;
+        }
+
+       .evaluation-flow {
+            text-align: center;
+            margin-top: 15px;
+        }
+       .evaluation-arrow-symbol {
+            font-size: 1.5em;
+            color: #8e44ad;
+        }
+
+       .technology-object {
+            background-color: #e8f6f3;
+            border: 2px solid #1abc9c;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+       .technology-object h4 {
+            margin: 0;
+            color: #16a085;
+            font-size: 1.5em;
+        }
+
+       .legend {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            font-size: 0.9em;
+            text-align: center;
+            color: #555;
+        }
+
+        /* Connector lines (conceptual - very basic) */
+        /* True connectors would need SVG or a JS library */
+       .structural-factors-container::after,.actors-container::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        /* Basic visual cue for influence - not a true line */
+       .actor-card {
+            position: relative; /* For potential pseudo-elements if needed */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <h1 class="diagram-title">学术思路图：鞍山村农业无人机感知评价与影响因素框架</h1>
+
+        <div class="layer">
+            <h3>外部结构性因素 (双重背景)</h3>
+            <div class="structural-factors-container">
+                <div class="factor">
+                    <h4>国家政策引导</h4>
+                    <ul>
+                        <li>补贴政策的可及性</li>
+                        <li>农业现代化战略 [1]</li>
+                        <li>乡村振兴规划 [1]</li>
+                    </ul>
+                </div>
+                <div class="factor">
+                    <h4>市场力量介入</h4>
+                    <ul>
+                        <li>技术服务商的营销策略 [1]</li>
+                        <li>无人机技术成本与可获得性 [1]</li>
+                        <li>产业链支持与竞争</li>
+                    </ul>
+                </div>
+                <div class="factor">
+                    <h4>地方发展情境 (鞍山村)</h4>
+                    <ul>
+                        <li>村庄发展规划 (农旅融合 [2, 3], 生态农业 [4])</li>
+                        <li>“强村公司”运营目标 [5, 1]</li>
+                        <li>社区文化与资源禀赋</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="influence-arrow-container">
+            <span class="influence-arrow">▼</span>
+            <p style="font-size:0.9em; color:#e67e22;">(影响感知与评价过程)</p>
+        </div>
+
+        <div class="layer">
+            <h3>鞍山村行动主体 & 对无人机属性的感知评价</h3>
+            <div class="actors-container">
+                <div class="actor-card">
+                    <h4>传统农户</h4>
+                    <div class="perception-lens">
+                        <h5>感知评价“透镜” (无人机属性 [1])</h5>
+                        <ul>
+                            <li>相对优势 (经济效益, 效率)</li>
+                            <li>兼容性 (与现有农耕习惯, 技能)</li>
+                            <li>复杂性 (操作学习, 维护)</li>
+                            <li>可试验性 (试用机会, 成本)</li>
+                            <li>可观察性 (效果是否可见, 他人经验)</li>
+                        </ul>
+                    </div>
+                    <div class="evaluation-flow">
+                        <span class="evaluation-arrow-symbol">►</span> (评价)
+                    </div>
+                </div>
+
+                <div class="actor-card">
+                    <h4>返乡“新村民”</h4>
+                    <div class="perception-lens">
+                        <h5>感知评价“透镜” (无人机属性 [1])</h5>
+                        <ul>
+                            <li>相对优势 (创新性, 商业模式)</li>
+                            <li>兼容性 (与新理念, 项目需求)</li>
+                            <li>复杂性 (技术接受度, 学习能力)</li>
+                            <li>可试验性 (小规模创新应用)</li>
+                            <li>可观察性 (市场反馈, 示范效应)</li>
+                        </ul>
+                    </div>
+                     <div class="evaluation-flow">
+                        <span class="evaluation-arrow-symbol">►</span> (评价)
+                    </div>
+                </div>
+
+                <div class="actor-card">
+                    <h4>村集体经济组织“强村公司” [5, 1]</h4>
+                    <div class="perception-lens">
+                        <h5>感知评价“透镜” (无人机属性 [1])</h5>
+                        <ul>
+                            <li>相对优势 (集体增效, 产业升级)</li>
+                            <li>兼容性 (与村庄规划, 统一管理)</li>
+                            <li>复杂性 (规模化运营, 人员培训)</li>
+                            <li>可试验性 (试点项目, 投资回报)</li>
+                            <li>可观察性 (对集体经济的贡献, 示范作用)</li>
+                        </ul>
+                    </div>
+                     <div class="evaluation-flow">
+                        <span class="evaluation-arrow-symbol">►</span> (评价)
+                    </div>
+                </div>
+
+                <div class="actor-card">
+                    <h4>农业合作社</h4>
+                    <div class="perception-lens">
+                        <h5>感知评价“透镜” (无人机属性 [1])</h5>
+                        <ul>
+                            <li>相对优势 (成员共享效益, 降低个体成本)</li>
+                            <li>兼容性 (与合作社服务模式, 成员需求)</li>
+                            <li>复杂性 (统一操作维护, 成员协调)</li>
+                            <li>可试验性 (合作社统一试用推广)</li>
+                            <li>可观察性 (对成员的普惠效果)</li>
+                        </ul>
+                    </div>
+                     <div class="evaluation-flow">
+                        <span class="evaluation-arrow-symbol">►</span> (评价)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="influence-arrow-container" style="transform: rotate(180deg); margin-top: -10px; margin-bottom: 10px;">
+             <span class="influence-arrow" style="color:#8e44ad;">▼</span>
+        </div>
+
+        <div class="layer technology-object">
+            <h4>农业无人机技术</h4>
+        </div>
+
+        <div class="legend">
+            <strong>图示说明：</strong> 本图旨在概念性地展示外部结构性因素（国家政策、市场力量、地方情境）如何影响鞍山村不同行动主体（传统农户、“新村民”、强村公司、合作社）对农业无人机各项核心属性（相对优势、兼容性、复杂性、可试验性、可观察性）的感知与评价过程，进而影响他们对该技术的总体态度和采纳行为。箭头 (▼, ►) 示意主要的影响和评价流向。
+        </div>
+    </div>
+</body>
+</html>
